@@ -1,5 +1,7 @@
 let numeroSecreto = 0
 let intentos = 0
+let numerosSorteados = []
+let numeroMaximo = 10
 enfocarInput()
 
 function verificarIntento() {
@@ -21,7 +23,7 @@ function verificarIntento() {
         }
     }
     else {
-        asignarTexto("p", "Debes colocar un número del 1 al 10: ")
+        asignarTexto("p", `Debes colocar un número del 1 al ${numeroMaximo}: `)
     }
 }
 
@@ -39,7 +41,7 @@ function reiniciarJuego() {
 
 function condicionesIniciales(){
     asignarTexto("h1", "¡Juego del número secreto!")
-    asignarTexto("p", "Ingresa un número del 1 al 10: ")
+    asignarTexto("p", `Ingresa un número del 1 al ${numeroMaximo}: `)
     numeroSecreto = generarNumeroSecreto()
     intentos = 1
 }
@@ -54,7 +56,21 @@ function asignarTexto(elemento, texto){
 }
 
 function generarNumeroSecreto() {
-    return Math.floor(Math.random() * 10) + 1
+    let numeroGenerado = Math.floor(Math.random() * numeroMaximo) + 1
+
+    if (numerosSorteados.length == numeroMaximo) {
+        asignarTexto("p", "Se alcanzo el limite maximo :(")
+    }
+    else{
+        if (numerosSorteados.includes(numeroGenerado)) {
+            return generarNumeroSecreto()
+        }
+        else {
+            numerosSorteados.push(numeroGenerado)
+            return numeroGenerado
+        }
+    }
+    
    
 }
 
